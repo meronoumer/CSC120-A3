@@ -1,7 +1,7 @@
 Use this file to record your reflection on this assignment.
 
 - Which classmates did you consult with while working on this assignment?
-   Maylynn Rodriguez,Mata
+   Maylynn Rodriguez,Boushilah Mata
 
 
 - Which session(s) of TA / office hours did you attend?
