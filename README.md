@@ -30,7 +30,7 @@ For the main part of the assignment, you will write in Java a program similar to
 If at any point the user's input contains pronouns or other words that can be mirrored ("I" <-> "you" for example) then the computer's next response will be a mirrored version of the previous statement. Otherwise, it will select a random response from a set of pre-made ("canned") phrases. Below is an example conversation:
 
 ```
-$ java Conversation
+$ java Conversation    how is this two rounds?
 How many rounds?  2
 
 Hi there!  What's on your mind?
