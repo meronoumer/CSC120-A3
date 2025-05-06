@@ -1,15 +1,16 @@
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.Random;
+import java.util.Scanner;
+
+// References: https://www.w3schools.com/java/ref_string_replaceall.asp
 
 
 /**
  * Represents a conversation with a chatbot.
  * Implements the Chatbot interface to handle user input and generate responses.
  */
-class Conversation implements Chatbot {
+class Conversation implements Chatbot {  
 
-  // Attributes 
   /**
  * An array of canned responses used by the chatbot.
  */
@@ -19,13 +20,14 @@ class Conversation implements Chatbot {
   /**
  * Stores the transcript of the conversation.
  */
-  static ArrayList<String> transcript = new ArrayList<>();
-
+ArrayList<String> transcript;
   /**
    * Constructor 
    * Constructs a new Conversation object.
    */
-  Conversation() {
+
+  public Conversation() {
+    this.transcript = new ArrayList<String>();
     
   }
   /**
@@ -38,9 +40,9 @@ class Conversation implements Chatbot {
     System.out.println("Hello. I'm a Chatbot. Nice to meet you !");
     System.out.println("How many rounds?");
     int roundsNum  = input.nextInt();  
+    input.nextLine();
     
     System.out.println("Hi there!  What's on your mind?");
-    String firstInput = input.nextLine();
 
     for(int i = 0;i<roundsNum ;i++){
       String userInput = input.nextLine();
@@ -74,13 +76,18 @@ class Conversation implements Chatbot {
  * @return A response string, either randomly selected or modified based on the input.
  */ 
   public String respond(String inputString) {
+    String response;
     String lowerInput = inputString.toLowerCase();
     Random random = new Random(); // Create a Random object
     int randomIndex = random.nextInt(cannedResponses.length); // Generate a random index
-    String response = cannedResponses[randomIndex];
+    response = cannedResponses[randomIndex];
+
+    String[] words = inputString.split("\\s+"); //new changes
+
+
    
     if (lowerInput.contains("i ") || 
-    lowerInput.contains("me ")||
+    lowerInput.contains("me")||
     lowerInput.contains("am ")||
     lowerInput.contains("you ")||
     lowerInput.contains("your ")||
@@ -89,39 +96,33 @@ class Conversation implements Chatbot {
     lowerInput.contains("is ")){
       response = inputString;
 
-      if (lowerInput.contains("i ")) {
-        response = lowerInput.replace("i ", "You "); }
+
+    response = response.replaceAll("\\b[Ii]\\b", "You");
+    response = response.replaceAll("\\byou\\b", "I");
+        response = response.replaceAll("\\bme\\b", "you");
+        response = response.replaceAll("\\bYour\\b", "My");
+        // response = response.replaceAll("\\bmy\\b", "your");
+        response = response.replaceAll("\\bmy\\b", "_TEMP_MY_");
+        response = response.replaceAll("\\byour\\b", "my");
+        response = response.replaceAll("\\bMy\\b", "Your");
+
+
+        response = response.replaceAll("\\bam\\b", "are");
+        response = response.replaceAll("\\bis\\b", "are");
+
+        response = response.replaceAll("_TEMP_MY_", "your");
+
+
         
-        
-    
-      if  (lowerInput.contains("me ")) {
-        response = response.replace("me", "you"); }
-      if (lowerInput.contains("am ")) {
-        response = response.replace("am", "are"); }
-      if (lowerInput.contains("you ")) {
-        response = response.replace("you", "I"); }
-      if (lowerInput.toLowerCase().contains("your ")) {
-        response = response.replace("your", "my"); }
-      if (lowerInput.toLowerCase().contains("my ")) {
-        response = response.replace("my", "your"); }
-      if (lowerInput.toLowerCase().contains("are ")){
-        response = response.replace("are","am");
-
+      
+      
+      
       }
-      if (lowerInput.toLowerCase().contains("is ")){
-        response = response.replace("is", "are");
-      }
-      return response;
-      }
-    else{
-      return response;
 
-      }    
-
-    
-
-
+        return response;
     }
+
+
   
       
   
